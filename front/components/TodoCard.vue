@@ -1,8 +1,34 @@
 <template>
     <v-container>
-        <v-card>
+        <v-card :style="[todo.finish ? {'backgroundColor': cardFinishColor, 'color': 'white' } : {'backgroundColor': cardColor, 'color': 'black' }]">
             <v-container>
-                {{ todo.content }}
+                <v-row no-gutters>
+                    <v-col cols="12" md="10">
+                         <v-row no-gutters>
+                              <v-col cols="12" md="1">
+                                {{ todo.type }}
+                            </v-col>
+                            <v-col cols="12" md="8">
+                                <span style="font-weight: bolder">{{ todo.content }}</span>
+                            </v-col>
+                            <v-col cols="12" md="3">
+                                {{ todo.startDate }}<span v-if="todo.startDate !== todo.endDate">~{{ todo.endDate }}</span>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    
+                    <v-col cols="12" md="2">
+                        <div style="display: flex;">
+                        <template v-if="todo.finish">
+                        <v-btn dark color="blue" style="flex: 1;" @click="clickUnFinish(index)">안끝났어!</v-btn>
+                        </template>
+                        <template v-else>
+                            <v-btn dark color="blue" style="flex: 1;" @click="clickFinish(index)">끝났어!</v-btn>
+                        </template>
+                        <v-btn dark color="red" style="flex: 1;" @click="clickRemove(index)">X</v-btn>
+                        </div>
+                    </v-col>
+                </v-row>                    
             </v-container>
         </v-card>
     </v-container>
@@ -12,10 +38,72 @@
 export default {
     props: {
         todo: {
-            type: Array,
+            type: Object,
             required: true,
+        },
+        index: {
+            type: Number,
+            required: true,
+        },
+    },
+
+    computed: {
+        cardFinishColor() {
+            let color = '#03A9F4'; //일반
+            if(this.todo.type ==='회사'){
+                color = '#FFA726';
+            }
+            else if(this.todo.type ==='가족'){
+                color = '#66BB6A';
+            }
+            else if(this.todo.type ==='친구'){
+                color = '#5C6BC0';
+            }
+            return color;
+        },
+        cardColor() {
+            let color = '#E1F5FE'; //일반
+            if(this.todo.type ==='회사'){
+                color = '#FFF3E0';
+            }
+            else if(this.todo.type ==='가족'){
+                color = '#E8F5E9';
+            }
+            else if(this.todo.type ==='친구'){
+                color = '#E8EAF6';
+            }
+            return color;
         }
-    }
+    },
+    methods: {
+        async clickRemove(index) {
+            try {
+                await this.$store.dispatch('todolists/removeTodoList', {
+                    todoId: index,
+                })
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async clickFinish(index) {
+            try {
+                await this.$store.dispatch('todolists/finishTodoList', {
+                    todoId: index,
+                })
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async clickUnFinish(index) {
+            try {
+                await this.$store.dispatch('todolists/unFinishTodoList', {
+                    todoId: index,
+                })
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
 }
 </script>
 

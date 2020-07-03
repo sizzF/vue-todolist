@@ -10,10 +10,10 @@
             </v-toolbar>
         </nav>
       <v-row no-gutters>
-          <v-col md="3">
+          <v-col cols="12" md="3">
               <todo-form />
           </v-col>
-          <v-col md="9">
+          <v-col cols="12" md="9">
               <nuxt />
           </v-col>
       </v-row>
