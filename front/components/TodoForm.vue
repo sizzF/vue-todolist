@@ -1,8 +1,9 @@
 <template>
     <v-container>
         <v-card>
-            <v-form ref="form" v-model="valid" @submit.prevent="addTodoList">
-                <v-container>
+            <v-container>
+            <v-btn dark color="blue" type="button" @click="clickHideBtn" v-if="hide">할일 추가</v-btn>
+                <v-form ref="form" v-model="valid" @submit.prevent="addTodoList" v-else>
                     <v-text-field
                         v-model="content"
                         label="할일을 기록해주세요"
@@ -95,9 +96,12 @@
                         <v-btn text color="primary" @click="$refs.menu2.save(endDate)">확인</v-btn>
                         </v-date-picker>
                     </v-menu>
-                    <v-btn dark color="blue" type="submit">추가</v-btn>
-                </v-container>
-            </v-form>
+                    <div>
+                        <v-btn dark color="blue" type="submit">추가</v-btn>
+                        <v-btn dark color="blue" type="button" @click="clickHideBtn">숨기기</v-btn>
+                    </div>
+                </v-form>
+            </v-container>
         </v-card>
     </v-container>
 </template>
@@ -111,11 +115,7 @@ export default {
             content: '',
             type: '일반',
             valid: '',
-        }
-    },
-    computed: {
-        todoLists() {
-            return this.$store.state.todolists.mainTodoLists;
+            hide: true,
         }
     },
     
@@ -131,6 +131,9 @@ export default {
                 });
                 this.content='';
             }
+        },
+        clickHideBtn() {
+            this.hide = !this.hide;
         }
     },
 }

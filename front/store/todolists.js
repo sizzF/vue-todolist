@@ -24,11 +24,11 @@ export const mutations = {
     },
     finishTodoList(state, payload) {
         //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);
-        state.mainTodoLists[payload.todoId].finish = true;
+        Vue.set(state.mainTodoLists[payload.todoId], 'finish', true);
     },
     unFinishTodoList(state, payload) {
         //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);
-        state.mainTodoLists[payload.todoId].finish = false;
+        Vue.set(state.mainTodoLists[payload.todoId], 'finish', false);
     },
     removeTodoList(state, payload) {
         //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);

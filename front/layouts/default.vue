@@ -7,13 +7,35 @@
                     TodoList
                     </nuxt-link>
                 </v-toolbar-title>
+                <v-spacer />
+                <div v-if="me">안녕하세요. {{me.nickname}}님</div>
+                <v-toolbar-items v-if="!me">
+                    <v-btn text nuxt to="/login">
+                        로그인
+                    </v-btn>
+                    <v-btn text nuxt to="/signup">
+                        회원가입
+                    </v-btn>
+                </v-toolbar-items>
+                <v-toolbar-items v-else>
+                    <v-btn text @click="logout">
+                        로그아웃
+                    </v-btn>
+                </v-toolbar-items>
             </v-toolbar>
         </nav>
-      <v-row no-gutters>
+      <v-row no-gutters v-if="isIndex">
           <v-col cols="12" md="3">
+              {{ col }}
               <todo-form />
+              <todo-state />
           </v-col>
           <v-col cols="12" md="9">
+              <nuxt />
+          </v-col>
+      </v-row>
+      <v-row no-gutters v-else>
+          <v-col cols="12" md="12">
               <nuxt />
           </v-col>
       </v-row>
@@ -22,10 +44,31 @@
 
 <script>
 import TodoForm from '~/components/TodoForm';
+import TodoState from '~/components/TodoState';
 export default {
     components: {
-        TodoForm
+        TodoForm,
+        TodoState
+    },
+    computed: {
+        me() {
+            return this.$store.state.users.me;
+        },
+        isIndex() {
+            return this.$route.path === '/';
+        }
+    },
+    methods: {
+        async logout() {
+            try{
+                await this.$store.dispatch('users/logout');
+                this.$router.push('/');
+            }catch(err){
+                console.error(err);
+            }
+        }
     }
+
 }
 </script>
 

@@ -31,7 +31,10 @@
                 </v-date-picker>
             </v-menu>
             <div>
+                <!--<draggable v-model="viewTodoLists" group="todoList" @start="drag=true" @end="drag=false">-->
                 <todo-card v-for="(todo, index) in viewTodoLists" :key="index" :todo="todo" :index="index" />
+                <!--</draggable>-->
+
             </div>
         </v-container>
     </div>
@@ -40,15 +43,15 @@
 <script>
 import TodoCard from '~/components/TodoCard';
 import { mapState } from 'vuex';
-
+import draggable from 'vuedraggable';
 export default {
     components: {
-        TodoCard
+        TodoCard,
+        //draggable
     },
     data() {
         return {
             date: new Date().toISOString().substr(0, 10),
-
         }
     },
     computed: {
