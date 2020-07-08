@@ -120,17 +120,22 @@ export default {
     },
     
     methods: {
-        addTodoList() {
-            if(this.$refs.form.validate()){
-                this.$store.commit('todolists/addTodoList', {
-                content: this.content,
-                type: this.type,
-                startDate: this.startDate,
-                endDate: this.endDate,
-                finish: false,
-                });
-                this.content='';
+        async addTodoList() {
+            try{
+                if(this.$refs.form.validate()){
+                    await this.$store.dispatch('todolists/addTodoList',{
+                        content: this.content,
+                        type: this.type,
+                        startDate: this.startDate,
+                        endDate: this.endDate,
+                        finish: false,
+                    });
+                    this.content='';
+                }
+            }catch(err){
+                console.error(err);
             }
+
         },
         clickHideBtn() {
             this.hide = !this.hide;

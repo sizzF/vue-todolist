@@ -26,7 +26,6 @@
         </nav>
       <v-row no-gutters v-if="isIndex">
           <v-col cols="12" md="3">
-              {{ col }}
               <todo-form />
               <todo-state />
           </v-col>
@@ -61,8 +60,10 @@ export default {
     methods: {
         async logout() {
             try{
-                await this.$store.dispatch('users/logout');
-                this.$router.push('/');
+                const result = await this.$store.dispatch('users/logout');
+                if(result){
+                    this.$router.push('/login');
+                }
             }catch(err){
                 console.error(err);
             }

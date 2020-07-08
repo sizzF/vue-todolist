@@ -82,12 +82,14 @@
             async onSignUpForm() {
                 try{
                     if(this.$refs.form.validate()){
-                        await this.$store.dispatch('users/signUp', {
+                        const result = await this.$store.dispatch('users/signUp', {
                             id: this.id,
                             password: this.password,
                             nickname: this.nickname,
                         })
-                        this.$router.push('/');
+                        if(result){
+                            this.$router.push('/login');
+                        }
                     }
                 }catch(err){
                     console.error(err);

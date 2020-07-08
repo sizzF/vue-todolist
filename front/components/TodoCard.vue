@@ -20,12 +20,12 @@
                     <v-col cols="12" md="2">
                         <div style="display: flex;">
                         <template v-if="todo.finish">
-                        <v-btn dark color="blue" style="flex: 1;" @click="clickUnFinish(index)">안끝났어!</v-btn>
+                        <v-btn dark color="blue" style="flex: 1;" @click="clickUnFinish(todo.id)">안끝났어!</v-btn>
                         </template>
                         <template v-else>
-                            <v-btn dark color="blue" style="flex: 1;" @click="clickFinish(index)">끝났어!</v-btn>
+                            <v-btn dark color="blue" style="flex: 1;" @click="clickFinish(todo.id)">끝났어!</v-btn>
                         </template>
-                        <v-btn dark color="red" style="flex: 1;" @click="clickRemove(index)">X</v-btn>
+                        <v-btn dark color="red" style="flex: 1;" @click="clickRemove(todo.id)">X</v-btn>
                         </div>
                     </v-col>
                 </v-row>                    
@@ -76,28 +76,28 @@ export default {
         }
     },
     methods: {
-        async clickRemove(index) {
+        async clickRemove(id) {
             try {
                 await this.$store.dispatch('todolists/removeTodoList', {
-                    todoId: index,
+                    id: id,
                 })
             } catch (error) {
                 console.error(error);
             }
         },
-        async clickFinish(index) {
+        async clickFinish(id) {
             try {
                 await this.$store.dispatch('todolists/finishTodoList', {
-                    todoId: index,
+                    id: id,
                 })
             } catch (error) {
                 console.error(error);
             }
         },
-        async clickUnFinish(index) {
+        async clickUnFinish(id) {
             try {
                 await this.$store.dispatch('todolists/unFinishTodoList', {
-                    todoId: index,
+                    id: id,
                 })
             } catch (error) {
                 console.error(error);

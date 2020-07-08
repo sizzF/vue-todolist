@@ -3,7 +3,6 @@ import throttle from 'lodash.throttle';
 
 export const state = () => ({
     mainTodoLists: [],
-    viewTodoLists: [],
 });
 
 export const mutations = {
@@ -11,24 +10,15 @@ export const mutations = {
         state.mainTodoLists.unshift(payload);
     },
     getTodoLists(state, payload) {
-        let tempList = [];
-        state.mainTodoLists.forEach(v => {
-            const startDate = v.startDate.substr(0,4)*10000+v.startDate.substr(5,2)*100+v.startDate.substr(8,2);
-            const endDate = v.endDate.substr(0,4)*10000+v.endDate.substr(5,2)*100+v.endDate.substr(8,2);
-            const date = payload.date.substr(0,4)*10000+payload.date.substr(5,2)*100+payload.date.substr(8,2);
-            if(startDate<=date && date<=endDate){
-                tempList.push(v);
-            }
-        });
-        state.viewTodoLists=tempList;
+        state.mainTodoLists=payload;
     },
     finishTodoList(state, payload) {
-        //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);
-        Vue.set(state.mainTodoLists[payload.todoId], 'finish', true);
+        const index = state.mainTodoLists.findIndex(v => v.id === payload.id);
+        Vue.set(state.mainTodoLists[index], 'finish', true);
     },
     unFinishTodoList(state, payload) {
-        //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);
-        Vue.set(state.mainTodoLists[payload.todoId], 'finish', false);
+        const index = state.mainTodoLists.findIndex(v => v.id === payload.id);
+        Vue.set(state.mainTodoLists[index], 'finish', false);
     },
     removeTodoList(state, payload) {
         //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);
@@ -37,36 +27,60 @@ export const mutations = {
 };
 
 export const actions = {
-    async getTodoLists({ commit }, payload) {
+    addTodoList: throttle(async function({ commit }, payload) {
         try {
-            //await this.$axios.get();
-            commit('getTodoLists', payload);
+            const res = await this.$axios.post('/todoList', {
+                content: payload.content,
+                type: payload.type,
+                startDate: payload.startDate,
+                endDate: payload.endDate,
+                finish: payload.finish,
+            }, {
+                withCredentials: true
+            });
+            commit('addTodoList', res.data);
         } catch (error) {
             console.error(error);
         }
-    },
-    async finishTodoList({ commit }, payload) {
+    }, 1000),
+
+    getTodoLists:throttle(async function({ commit }, payload) {
         try {
-            //await this.$axios.patch();
-            commit('finishTodoList', payload);
+            const res = await this.$axios.get(`/todoList?date=${payload.date}`);
+            commit('getTodoLists', res.data);
         } catch (error) {
             console.error(error);
         }
-    },
-    async unFinishTodoList({ commit }, payload) {
+    }, 1000),
+
+    finishTodoList: throttle(async function({ commit }, payload) {
         try {
-            //await this.$axios.patch();
-            commit('unFinishTodoList', payload);
+            const res = await this.$axios.patch('todolist/finish',{
+                id: payload.id,
+            },{ withCredentials: true });
+            commit('finishTodoList', res.data);
         } catch (error) {
             console.error(error);
         }
-    },
-    async removeTodoList({ commit }, payload) {
+    }, 1000),
+
+    unFinishTodoList: throttle(async function({ commit }, payload) {
+        try {
+            const res = await this.$axios.patch('todolist/unfinish',{
+                id: payload.id,
+            },{ withCredentials: true });
+            commit('unFinishTodoList', res.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }, 1000),
+
+    removeTodoList: throttle(async function({ commit }, payload) {
         try {
             //await this.$axios.delete();
             commit('removeTodoList', payload);
         } catch (error) {
             console.error(error);
         }
-    }
+    }, 1000),
 };

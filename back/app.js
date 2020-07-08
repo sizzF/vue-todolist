@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
 const passport = require('passport');
 const session = require('express-session');
 const cookie = require('cookie-parser');
@@ -15,7 +14,6 @@ const prod = process.env.NODE_ENV === 'production';
 const passportConfig = require('./passport');
 const userRouter = require('./routes/user');
 const todoListRouter = require('./routes/todoList');
-const todoListsRouter = require('./routes/todoLists');
 
 
 const app = express();
@@ -46,10 +44,6 @@ app.use(session({
     resave: false,
     saveUnitialized: false,
     secret: process.env.COOKIE_SECRET,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-    }
 }));
 
 passportConfig();
@@ -62,7 +56,7 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter);
 app.use('/todoList', todoListRouter);
-app.use('/todoLists', todoListsRouter);
+
 
 app.listen(prod ? process.env.PORT : 3086, () => {
     console.log(`백엔드 서버 ${prod ? process.env.PORT : 3086}번 포트에서 작동중`);

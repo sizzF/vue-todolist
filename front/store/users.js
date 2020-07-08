@@ -14,14 +14,15 @@ export const mutations = {
 export const actions = {
     signUp: throttle(async function({ commit }, payload) {
         try {
-            /*const res = await this.$axios.post('/signup', {
+            const res = await this.$axios.post('/user', {
                 id: payload.id,
                 password: payload.password,
                 nickname: payload.nickname,
             }, {
                 withCredentials: true
-            });*/
-            commit('setMe', payload);
+            });
+            console.log(res);
+            return true;
         }catch(err){
             console.error(err);
             alert(err.response.data);
@@ -29,13 +30,14 @@ export const actions = {
     }, 5000),
     login: throttle(async function({ commit }, payload) {
         try {
-            /*const res = await this.$axios.post('/signup', {
+            const res = await this.$axios.post('/user/login', {
                 id: payload.id,
                 password: payload.password,
             }, {
                 withCredentials: true
-            });*/
-            commit('setMe', payload);
+            });
+            commit('setMe', res.data);
+            return true;
         }catch(err){
             console.error(err);
             alert(err.response.data);
@@ -43,10 +45,11 @@ export const actions = {
     }, 5000),
     logout: throttle(async function({ commit }) {
         try {
-            /*const res = await this.$axios.post('/logout', {}, {
+            const res = await this.$axios.post('/user/logout', {}, {
                 withCredentials: true
-            });*/
+            });
             commit('setMe', null);
+            return true;
         }catch(err){
             console.error(err);
             alert(err.response.data);
