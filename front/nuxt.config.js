@@ -21,7 +21,7 @@ module.exports = {
           }, {
             hid: 'ogurl', property: 'og:url', content: '',
           }],
-          link: [{ rel: 'shortcut icon', href: '/vue-nodebird.png' }],
+          link: [{ rel: 'shortcut icon', href: '/vue-TodoList.png' }],
           
     },
     modules: [
@@ -51,6 +51,7 @@ module.exports = {
         }
     },
     server: {
+        host: "0,0,0,0",
         port: process.env.PORT || 3089,
     },
 };
