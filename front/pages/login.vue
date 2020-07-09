@@ -21,7 +21,7 @@
                                     :rules="passwordRules"
                                     required
                             />
-                            <v-btn color="blue" type="submit" :disabled="!valid">로그인</v-btn>
+                            <v-btn dark color="blue" type="submit">로그인</v-btn>
                         </v-form>
                     </v-container>
                 </v-card>

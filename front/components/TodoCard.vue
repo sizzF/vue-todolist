@@ -12,7 +12,7 @@
                                 <span style="font-weight: bolder">{{ todo.content }}</span>
                             </v-col>
                             <v-col cols="12" md="3">
-                                {{ todo.startDate }}<span v-if="todo.startDate !== todo.endDate">~{{ todo.endDate }}</span>
+                                {{ todo.startDate.substr(0, 10) }}~{{ todo.endDate.substr(0, 10) }}
                             </v-col>
                         </v-row>
                     </v-col>

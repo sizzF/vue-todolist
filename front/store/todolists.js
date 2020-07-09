@@ -21,8 +21,8 @@ export const mutations = {
         Vue.set(state.mainTodoLists[index], 'finish', false);
     },
     removeTodoList(state, payload) {
-        //const index = state.mainTodoLists.findIndex(v => v.id === payload.todoId);
-        state.mainTodoLists.splice(payload.todoId, 1);
+        const index = state.mainTodoLists.findIndex(v => v.id === payload.id);
+        state.mainTodoLists.splice(index, 1);
     }
 };
 
@@ -46,7 +46,9 @@ export const actions = {
 
     getTodoLists:throttle(async function({ commit }, payload) {
         try {
-            const res = await this.$axios.get(`/todoList?date=${payload.date}`);
+            const res = await this.$axios.get(`/todoList?findDate=${payload.date}`, {
+                withCredentials: true
+            });
             commit('getTodoLists', res.data);
         } catch (error) {
             console.error(error);
@@ -55,9 +57,11 @@ export const actions = {
 
     finishTodoList: throttle(async function({ commit }, payload) {
         try {
-            const res = await this.$axios.patch('todolist/finish',{
+            const res = await this.$axios.patch('/todolist/finish',{
                 id: payload.id,
-            },{ withCredentials: true });
+            },{
+                withCredentials: true
+            });
             commit('finishTodoList', res.data);
         } catch (error) {
             console.error(error);
@@ -66,9 +70,11 @@ export const actions = {
 
     unFinishTodoList: throttle(async function({ commit }, payload) {
         try {
-            const res = await this.$axios.patch('todolist/unfinish',{
+            const res = await this.$axios.patch('/todolist/unfinish',{
                 id: payload.id,
-            },{ withCredentials: true });
+            },{
+                withCredentials: true
+            });
             commit('unFinishTodoList', res.data);
         } catch (error) {
             console.error(error);
@@ -77,7 +83,9 @@ export const actions = {
 
     removeTodoList: throttle(async function({ commit }, payload) {
         try {
-            //await this.$axios.delete();
+            await this.$axios.delete(`/todolist/${payload.id}`,{
+                withCredentials: true,
+            });
             commit('removeTodoList', payload);
         } catch (error) {
             console.error(error);

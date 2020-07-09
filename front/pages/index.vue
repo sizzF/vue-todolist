@@ -45,6 +45,7 @@ import TodoCard from '~/components/TodoCard';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
 export default {
+    middleware: 'authenticated',
     components: {
         TodoCard,
         //draggable

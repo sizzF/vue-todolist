@@ -55,5 +55,16 @@ export const actions = {
             alert(err.response.data);
         }
     }, 5000),
+    async loadUser({ commit }) {
+        try {
+            const res = await this.$axios.get('/user',{
+                withCredentials: true,
+            });
+            commit('setMe', res.data);
+        } catch (err) {
+            console.error(err);
+            //    alert(err.response.data);
+        }
 
+    },
 };

@@ -110,15 +110,16 @@
 export default {
     data() {
         return {
+            today: new Date(),
             startDate: new Date().toISOString().substr(0, 10),
-            endDate: new Date().toISOString().substr(0, 10),
+            endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().substr(0, 10),
             content: '',
             type: '일반',
             valid: '',
             hide: true,
         }
     },
-    
+
     methods: {
         async addTodoList() {
             try{

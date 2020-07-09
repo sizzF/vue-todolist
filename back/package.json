@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "cross-env PORT=81 NODE_ENV=production pm2 start nodemon app.js"
   },
   "author": "sizzF",
   "license": "ISC",

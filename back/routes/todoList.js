@@ -7,16 +7,23 @@ const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 
 router.get('/', isLoggedIn, async(req, res, next) => {
     try{
+        console.log(req.query);
+        const yyyy = req.query.findDate.substr(0, 4);
+        const mm = req.query.findDate.substr(5, 2);
+        const dd = req.query.findDate.substr(8, 2);
+        const findDate = new Date(yyyy, mm-1, parseInt(dd)+1);
         const todoLists = await db.TodoList.findAll({
             where: {
                 UserId: req.user.id,
+
                 startDate: {
-                    [db.Sequelize.Op.lt]: req.query.date,
+                    [db.Sequelize.Op.lte]: findDate,
                 },
                 endDate: {
-                    [db.Sequelize.Op.gt]: req.query.date,
+                    [db.Sequelize.Op.gte]: findDate,
                 }
-            }
+            },
+            order: [['createdAt', 'DESC']],
         });
         return res.json(todoLists);
     }catch(err){
@@ -41,11 +48,26 @@ router.post('/', isLoggedIn, async(req, res, next) => {
         next(err);
     }
 });
-
+router.delete('/:id', isLoggedIn, async(req, res, next) => {
+    try{
+        const todo = await db.TodoList.destroy({
+            where: {
+                id: req.params.id,
+            }
+        });
+        return res.json(todo);
+    }catch(err){
+        console.error(err);
+        next(err);
+    }
+});
 router.patch('/finish', isLoggedIn, async(req, res, next) => {
     try{
         console.log(req.body.id);
         const updateTodo = await db.TodoList.findOne({ where: { id: req.body.id } });
+        if(!updateTodo){
+            return res.status(404).send('해당 할일이 존재하지 않습니다.')
+        }
         await updateTodo.update({
             finish: 1,
         });
@@ -59,6 +81,9 @@ router.patch('/finish', isLoggedIn, async(req, res, next) => {
 router.patch('/unfinish', isLoggedIn, async(req, res, next) => {
     try{
         const updateTodo = await db.TodoList.findOne({ where: { id: req.body.id } });
+        if(!updateTodo){
+            return res.status(404).send('해당 할일이 존재하지 않습니다.')
+        }
         await updateTodo.update({
             finish: 0,
         });
