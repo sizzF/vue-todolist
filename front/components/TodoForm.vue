@@ -10,6 +10,7 @@
                         :rules="[v => !!v || '할일이 아직 없어요!']"
                         required
                     />
+                    <v-alert type="success" :value="alert">입력성공</v-alert>
                     <div>분류</div>
                     <v-divider />
                     <v-radio-group
@@ -117,6 +118,7 @@ export default {
             type: '일반',
             valid: '',
             hide: true,
+            alert: false,
         }
     },
     watch: {
@@ -141,6 +143,10 @@ export default {
                         finish: false,
                     });
                     this.content='';
+                    this.alert = true;
+                    setTimeout(()=>{
+                        this.alert=false
+                    },2000);
                 }
             }catch(err){
                 console.error(err);

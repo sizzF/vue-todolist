@@ -61,17 +61,32 @@
             mainTodoLists() {
                 return this.$store.state.todolists.mainTodoLists;
             },
+            findDate() {
+                return this.$store.state.todolists.findDate;
+            },
+            viewTodoLists(){
+                let tempList = [];
+                this.mainTodoLists.forEach(v => {
+                    const startDate = v.startDate.substr(0,4)*10000+v.startDate.substr(5,2)*100+v.startDate.substr(8,2);
+                    const endDate = v.endDate.substr(0,4)*10000+v.endDate.substr(5,2)*100+v.endDate.substr(8,2);
+                    const date = this.findDate.substr(0,4)*10000+this.findDate.substr(5,2)*100+this.findDate.substr(8,2);
+                    if(startDate<=date && date<=endDate){
+                        tempList.push(v);
+                    }
+                });
+                return tempList;
+            },
             totalProgress(){
                 let finishCount = 0;
-                this.mainTodoLists.forEach(v => {
+                this.viewTodoLists.forEach(v => {
                     if(v.finish){
                         finishCount++;
                     }
                 });
-                return [finishCount/this.mainTodoLists.length*100, finishCount+'/'+this.mainTodoLists.length];
+                return [finishCount/this.viewTodoLists.length*100, finishCount+'/'+this.viewTodoLists.length];
             },
             normalProgress(){
-                let tempTodoLists = this.mainTodoLists.filter( v => {
+                let tempTodoLists = this.viewTodoLists.filter( v => {
                     return v.type === '일반';
                 });
                 let finishCount = 0;
@@ -83,7 +98,7 @@
                 return [finishCount/tempTodoLists.length*100, finishCount+'/'+tempTodoLists.length];
             },
             companyProgress(){
-                let tempTodoLists = this.mainTodoLists.filter( v => {
+                let tempTodoLists = this.viewTodoLists.filter( v => {
                     return v.type === '회사';
                 });
                 let finishCount = 0;
@@ -95,7 +110,7 @@
                 return [finishCount/tempTodoLists.length*100, finishCount+'/'+tempTodoLists.length];
             },
             familyProgress(){
-                let tempTodoLists = this.mainTodoLists.filter( v => {
+                let tempTodoLists = this.viewTodoLists.filter( v => {
                     return v.type === '가족';
                 });
                 let finishCount = 0;
@@ -107,7 +122,7 @@
                 return [finishCount/tempTodoLists.length*100, finishCount+'/'+tempTodoLists.length];
             },
             friendProgress(){
-                let tempTodoLists = this.mainTodoLists.filter( v => {
+                let tempTodoLists = this.viewTodoLists.filter( v => {
                     return v.type === '친구';
                 });
                 let finishCount = 0;

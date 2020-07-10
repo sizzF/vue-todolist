@@ -3,6 +3,7 @@ import throttle from 'lodash.throttle';
 
 export const state = () => ({
     mainTodoLists: [],
+    findDate: '',
 });
 
 export const mutations = {
@@ -10,7 +11,8 @@ export const mutations = {
         state.mainTodoLists.unshift(payload);
     },
     getTodoLists(state, payload) {
-        state.mainTodoLists=payload;
+        state.mainTodoLists=payload.data;
+        state.findDate=payload.findDate;
     },
     finishTodoList(state, payload) {
         const index = state.mainTodoLists.findIndex(v => v.id === payload.id);
@@ -49,7 +51,10 @@ export const actions = {
             const res = await this.$axios.get(`/todoList?findDate=${payload.date}`, {
                 withCredentials: true
             });
-            commit('getTodoLists', res.data);
+            commit('getTodoLists', {
+                data: res.data,
+                findDate: payload.date,
+            });
         } catch (error) {
             console.error(error);
         }
