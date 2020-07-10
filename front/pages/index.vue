@@ -51,7 +51,10 @@ export default {
         //draggable
     },
     fetch({ store }) {
-        return store.dispatch('todolists/getTodoLists', {date: new Date().toISOString().substr(0, 10)});
+        return Promise.all([
+            store.dispatch('users/loadUser'),
+            store.dispatch('todolists/getTodoLists', {date: new Date().toISOString().substr(0, 10)}),
+        ]);
     },
     data() {
         return {
