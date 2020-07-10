@@ -119,7 +119,17 @@ export default {
             hide: true,
         }
     },
-
+    watch: {
+        startDate: function (newVal, oldVal) {
+            console.log('test');
+            const yyyy = this.startDate.substr(0,4);
+            const mm = this.startDate.substr(5,2);
+            const dd = this.startDate.substr(8,2);
+            const date = new Date(yyyy, mm-1, dd);
+            console.log(yyyy,mm-1,dd);
+            this.endDate = new Date(date.setDate(date.getDate() + 1)).toISOString().substr(0, 10);
+        }
+    },
     methods: {
         async addTodoList() {
             try{
