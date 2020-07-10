@@ -24,6 +24,9 @@
                             <v-btn dark color="blue" type="submit">로그인</v-btn>
                         </v-form>
                     </v-container>
+                    <v-container>
+                        <v-btn dark color="blue" type="button" @click="loadUser">혹시 이미 로그인중이라고 나오나요?</v-btn>
+                    </v-container>
                 </v-card>
             </v-container>
         </v-col>
@@ -67,6 +70,17 @@
                         if(result){
                             this.$router.push('/');
                         }
+                    }
+                }catch(err){
+                    console.error(err);
+                }
+
+            },
+            async loadUser() {
+                try{
+                    const result = await this.$store.dispatch('users/loadUser');
+                    if (result){
+                        this.$router.push('/');
                     }
                 }catch(err){
                     console.error(err);

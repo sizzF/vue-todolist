@@ -61,6 +61,7 @@ export const actions = {
                 withCredentials: true,
             });
             commit('setMe', res.data);
+            return true;
         } catch (err) {
             console.error(err);
             //    alert(err.response.data);
