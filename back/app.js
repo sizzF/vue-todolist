@@ -32,7 +32,7 @@ if(prod){
 }else {
     app.use(morgan('dev'));
     app.use(cors({
-        origin: 'http://localhost:3089',
+        origin: 'http://18.223.50.128/:3089',
         credentials: true
     }))
 }
