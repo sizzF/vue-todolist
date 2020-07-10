@@ -26,7 +26,7 @@ if(prod){
     app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: '18.223.50.128:81',
+        origin: true,
         credentials: true
     }));
 }else {
