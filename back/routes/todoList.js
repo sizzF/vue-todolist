@@ -11,7 +11,7 @@ router.get('/', isLoggedIn, async(req, res, next) => {
         const yyyy = req.query.findDate.substr(0, 4);
         const mm = req.query.findDate.substr(5, 2);
         const dd = req.query.findDate.substr(8, 2);
-        const findDate = new Date(yyyy, mm-1, parseInt(dd)+1);
+        const findDate = new Date(yyyy, mm-1, dd);
         const todoLists = await db.TodoList.findAll({
             where: {
                 UserId: req.user.id,
