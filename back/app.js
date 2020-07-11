@@ -44,6 +44,11 @@ app.use(session({
     resave: false,
     saveUnitialized: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        domain: prod && 'http://18.223.50.128:3089/',
+    }
 }));
 
 passportConfig();
