@@ -39,11 +39,13 @@ if(prod){
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookie(process.env.COOKIE_SECRET));
+//app.use(cookie(process.env.COOKIE_SECRET));
+app.use(cookie('cookiesecret'));
 app.use(session({
     resave: false,
     saveUnitialized: false,
-    secret: process.env.COOKIE_SECRET,
+//    secret: process.env.COOKIE_SECRET,
+    secret: 'cookiesecret',
     cookie: {
         httpOnly: true,
         secure: false,
