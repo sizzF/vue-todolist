@@ -51,11 +51,6 @@
                 ],
             }
         },
-        fetch({ store }) {
-            return Promise.all([
-                store.dispatch('users/loadUser'),
-            ]);
-        },
         methods: {
             async onLoginForm() {
                 try{
