@@ -39,17 +39,15 @@ if(prod){
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(cookie(process.env.COOKIE_SECRET));
-app.use(cookie('cookiesecret'));
+app.use(cookie(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
     saveUnitialized: false,
-//    secret: process.env.COOKIE_SECRET,
-    secret: 'cookiesecret',
+    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
-//        domain: prod && 'http://18.223.50.128:3089/',
+        domain: prod && 'http://18.223.50.128:3089/',
     }
 }));
 
@@ -61,8 +59,8 @@ app.get('/', (req, res) => {
     res.send('vue-todolist-backend');
 });
 
-app.use('/user', userRouter);
-app.use('/todoList', todoListRouter);
+app.use('/api/user', userRouter);
+app.use('/api/todoList', todoListRouter);
 
 
 app.listen(prod ? process.env.PORT : 3086, () => {
