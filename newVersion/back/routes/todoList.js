@@ -7,7 +7,6 @@ const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 
 router.get('/', isLoggedIn, async(req, res, next) => {
     try{
-        console.log(req.query);
         const yyyy = req.query.findDate.substr(0, 4);
         const mm = req.query.findDate.substr(5, 2);
         const dd = req.query.findDate.substr(8, 2);
@@ -15,7 +14,7 @@ router.get('/', isLoggedIn, async(req, res, next) => {
         const todoLists = await db.TodoList.findAll({
             where: {
                 UserId: req.user.id,
-                startDate: findDate,
+                startDate: req.query.findDate,
             },
             order: [['createdAt', 'DESC']],
         });

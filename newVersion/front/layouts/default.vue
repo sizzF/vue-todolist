@@ -8,7 +8,7 @@
                     </nuxt-link>
                 </v-toolbar-title>
                 <v-spacer />
-                <div v-if="me">안녕하세요. {{me.nickname}}님</div>
+                <div v-if="me">{{me.nickname}}님</div>
                 <v-toolbar-items v-if="!me">
                     <v-btn text nuxt to="/login">
                         로그인
