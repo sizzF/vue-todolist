@@ -47,7 +47,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
-        domain: prod && '*',
+        domain: prod && 'http://18.223.50.128:3089/',
     }
 }));
 
