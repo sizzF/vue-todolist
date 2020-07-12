@@ -60,7 +60,6 @@ export const actions = {
             const res = await this.$axios.get('/user',{
                 withCredentials: true,
             });
-            console.error(res);
             commit('setMe', res.data);
             return true;
         } catch (err) {
