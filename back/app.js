@@ -22,8 +22,8 @@ dotenv.config();
 db.sequelize.sync({});
 
 if(prod){
-    app.use(helmet());
-    app.use(hpp());
+//    app.use(helmet());
+//    app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
         origin: true,
