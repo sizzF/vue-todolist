@@ -24,7 +24,7 @@ db.sequelize.sync({});
 if(prod){
 //    app.use(helmet());
 //    app.use(hpp());
-    app.use(morgan('combined'));
+    app.use(morgan('dev'));
     app.use(cors({
         origin: true,
         credentials: true
