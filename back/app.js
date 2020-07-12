@@ -26,7 +26,7 @@ if(prod){
     app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: "http://18.223.50.128:3089/",
+        origin: true,
         credentials: true
     }));
 }else {
@@ -47,7 +47,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
-        domain: prod && 'http://18.223.50.128:3089/',
+        domain: prod && '*',
     }
 }));
 
