@@ -24,7 +24,7 @@ db.sequelize.sync({});
 if(prod){
     app.use(helmet());
     app.use(hpp());
-    app.use(morgan('dev'));
+    app.use(morgan('combined'));
     app.use(cors({
         origin: true,
         credentials: true
@@ -47,7 +47,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
-//        domain: prod && 'http://18.223.50.128:3089/',
+        domain: prod && 'http://18.223.50.128:3089/',
     }
 }));
 
