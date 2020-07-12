@@ -26,7 +26,7 @@ if(prod){
     app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: "*",
+        origin: process.env.FRONT_URL,
         credentials: true
     }));
 }else {
