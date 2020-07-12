@@ -22,8 +22,8 @@ dotenv.config();
 db.sequelize.sync({});
 
 if(prod){
-//    app.use(helmet());
-//    app.use(hpp());
+    app.use(helmet());
+    app.use(hpp());
     app.use(morgan('dev'));
     app.use(cors({
         origin: true,
@@ -47,7 +47,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
-        domain: prod && 'http://18.223.50.128:3089/',
+//        domain: prod && 'http://18.223.50.128:3089/',
     }
 }));
 
