@@ -66,9 +66,8 @@ export default {
             let tempList = [];
             this.mainTodoLists.forEach(v => {
                 const startDate = v.startDate.substr(0,4)*10000+v.startDate.substr(5,2)*100+v.startDate.substr(8,2);
-                const endDate = v.endDate.substr(0,4)*10000+v.endDate.substr(5,2)*100+v.endDate.substr(8,2);
                 const date = this.date.substr(0,4)*10000+this.date.substr(5,2)*100+this.date.substr(8,2);
-                if(startDate<=date && date<=endDate){
+                if(startDate===date){
                     tempList.push(v);
                 }
             });

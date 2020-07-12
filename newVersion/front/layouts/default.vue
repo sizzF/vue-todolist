@@ -18,9 +18,7 @@
                     </v-btn>
                 </v-toolbar-items>
                 <v-toolbar-items v-else>
-                    <v-btn text @click="logout">
-                        로그아웃
-                    </v-btn>
+                    <menu-button />
                 </v-toolbar-items>
             </v-toolbar>
         </nav>
@@ -44,10 +42,12 @@
 <script>
 import TodoForm from '~/components/TodoForm';
 import TodoState from '~/components/TodoState';
+import MenuButton from '~/components/MenuButton';
 export default {
     components: {
         TodoForm,
-        TodoState
+        TodoState,
+        MenuButton
     },
     computed: {
         me() {
@@ -58,16 +58,7 @@ export default {
         }
     },
     methods: {
-        async logout() {
-            try{
-                const result = await this.$store.dispatch('users/logout');
-                if(result){
-                    this.$router.push('/login');
-                }
-            }catch(err){
-                console.error(err);
-            }
-        }
+
     }
 
 }
