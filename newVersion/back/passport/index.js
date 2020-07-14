@@ -9,11 +9,15 @@ module.exports = () => {
 
     passport.deserializeUser(async (id, done) => {
         try{
-            const user = await db.User.findOne({
+            const fullUser = await db.User.findOne({
                 where: { id },
                 attributes: ['id', 'nickname'],
+                include: [{
+                    model: db.TodoList,
+                    attributes: ['id', 'startDate', 'finish'],
+                }],
             });
-            return done(null, user);
+            return done(null, fullUser);
         }catch(err){
             console.error(err);
             return done(err);
