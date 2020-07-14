@@ -15,7 +15,7 @@
             <v-list-item
                     v-for="(item, i) in items"
                     :key="i"
-                    @click="items.method"
+                    @click="moveRoute(item.title)"
             >
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
@@ -29,30 +29,39 @@
         data() {
             return {
                 items: [
-                    { title: '일기장', method: this.moveDailyNote },
-                    { title: '프로필', method: this.moveProfile },
-                    { title: '로그아웃', method: this.logout },
+                    { title: '할일메모' },
+                    { title: '일기장' },
+                    { title: '프로필' },
+                    { title: '로그아웃' },
                 ]
             }
         },
         methods: {
-            moveDailyNote(){
-                this.$router.push('/dailyNote');
-            },
-            moveProfile(){
-                this.$router.push('/profile');
-            },
-            async logout() {
-                try{
-                    const result = await this.$store.dispatch('users/logout');
-                    if(result){
-                        this.$router.push('/login');
-                    }
-                }catch(err){
-                    console.error(err);
+            async moveRoute(item){
+                console.log('in');
+                switch (item) {
+                    case '할일메모':
+                        this.$router.push('/');
+                        break;
+                    case '일기장':
+                        this.$router.push('/dailyNote');
+                        break;
+                    case '프로필':
+                        this.$router.push('/profile');
+                        break;
+                    case '로그아웃':
+                        try{
+                            const result = await this.$store.dispatch('users/logout');
+                            if(result){
+                                this.$router.push('/login');
+                            }
+                        }catch(err){
+                            console.error(err);
+                        }
+                        break;
                 }
             }
-        }
+        },
     }
 </script>
 
