@@ -46,6 +46,28 @@ router.post('/', isNotLoggedIn, async(req, res, next) => {
     }
 });
 
+router.patch('/', isLoggedIn, async(req, res, next) => {
+    try{
+        const exUser = await db.User.findOne({
+            where: {
+                userId: req.body.id,
+            }
+        });
+        if(!exUser){
+            return res.status(403).send('회원정보가 존재하지 않습니다.');
+        }
+        exUser.update({
+            nickname: req.body.nickname,
+        });
+        exUser.attributes(['id', 'nickname']);
+        return res.json(exUser);
+    }catch(err){
+        console.error(err);
+        next(err);
+    }
+});
+
+
 router.post('/login', isNotLoggedIn, async(req, res, next) => {
     passport.authenticate('local',(err, user, info) => {
         if(err){

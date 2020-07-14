@@ -55,6 +55,19 @@ export const actions = {
             alert(err.response.data);
         }
     }, 5000),
+    modifyProfile: throttle(async function({ commit }, payload) {
+        try {
+            const res = await this.$axios.patch('/user', {
+                nickname: payload.nickname,
+            }, {
+                withCredentials: true
+            });
+            commit('setMe', res.data);
+        }catch(err){
+            console.error(err);
+            alert(err.response.data);
+        }
+    }, 5000),
     async loadUser({ commit }) {
         try {
             const res = await this.$axios.get('/user',{
