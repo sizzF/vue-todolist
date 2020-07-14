@@ -60,7 +60,15 @@ router.post('/login', isNotLoggedIn, async(req, res, next) => {
                 console.error(err);
                 return next(err);
             }
-            return res.json(user);
+            const fullUser = await db.User.findOne({
+                where: {id: user.id},
+                attributes: ['id', 'nickname'],
+                include: [{
+                    model: db.TodoList,
+                    attributes: ['id', 'startDate', 'finish'],
+                }],
+            });
+            return res.json(fullUser);
         })
     })(req, res, next);
 });
