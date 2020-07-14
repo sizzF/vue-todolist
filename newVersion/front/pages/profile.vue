@@ -6,6 +6,29 @@
         <v-col cols="12" md="4">
             <v-container>
                 <v-card>
+                    <v-container>
+                        <v-sheet height="600">
+                            <v-calendar
+                                    ref="calendar"
+                                    v-model="focus"
+                                    color="primary"
+                                    interval-height="10px"
+                                    :events="events"
+                                    :event-color="getEventColor"
+                                    :type="type"
+                                    @click:event="showEvent"
+                                    @click:more="viewDay"
+                                    @click:date="viewDay"
+                                    @change="updateRange"
+                            ></v-calendar>
+                        </v-sheet>
+                    </v-container>
+                </v-card>
+            </v-container>
+        </v-col>
+        <v-col cols="12" md="4">
+            <v-container>
+                <v-card>
                     <v-subheader>프로필 수정</v-subheader>
                     <v-container>
                         <v-form ref="form" v-model="vaild" @submit.prevent="onProfileModify">
@@ -31,7 +54,7 @@
         name: "profile",
         middleware: 'authenticated',
         components: {UserState},
-        layout: 'profile',
+        layout: 'page',
         data() {
             return {
                 nickname: '',

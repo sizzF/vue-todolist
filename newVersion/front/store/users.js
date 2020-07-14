@@ -66,7 +66,8 @@ export const actions = {
             }, {
                 withCredentials: true
             });
-            commit('modifyProfile', res);
+            console.log(res);
+            commit('modifyProfile', res.data);
         }catch(err){
             console.error(err);
             alert(err.response.data);

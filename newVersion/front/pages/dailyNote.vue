@@ -1,16 +1,32 @@
 <template>
-    <v-container style="width: 50%;">
-        <v-card>
+    <v-row no-gutters>
+        <v-col cols="12" md="4">
             <v-container>
-               일기장
+                <v-card>
+                    일기
+                </v-card>
             </v-container>
-        </v-card>
-    </v-container>
+        </v-col>
+        <v-col cols="12" md="8">
+            <v-container>
+                <v-card>
+                    일기
+                </v-card>
+            </v-container>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
     export default {
-        name: "profile"
+        name: "profile",
+        layout: 'page',
+        middleware: 'authenticated',
+        computed: {
+            me(){
+                return this.$store.state.users.me;
+            }
+        }
     }
 </script>
 
