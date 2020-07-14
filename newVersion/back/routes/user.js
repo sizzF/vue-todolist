@@ -9,7 +9,18 @@ const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 router.get('/', isLoggedIn, async(req, res, next) => {
     try{
         const user = req.user;
-        res.json(user);
+
+        const postsCount = await db.User.findAll({
+            where: {
+                userId: user.id,
+            },
+            attributes: [
+                [Sequelize.fn("COUNT", Sequelize.col("todolists.id")), "listCount"],
+                [Sequelize.fn("COUNT", Sequelize.literal("todolists.finish == 1")), "finshCount"],
+                [Sequelize.fn("COUNT", Sequelize.literal("todolists.finish == 0")), "notFinishCount"],
+            ],
+        });
+        res.json({ user: user, postsCount: postsCount });
     }catch(err){
         console.error(err);
         next(err);

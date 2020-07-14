@@ -40,6 +40,7 @@ module.exports = {
     },
     moment: {
         locales: ['ko'],
+        defaultTimezone: 'Asia/Seoul'
     },
     build: {
         extend(config, { isClient, isServer, isDev }){

@@ -63,7 +63,7 @@ export default {
     data() {
         return {
             today: new Date(),
-            startDate: new Date().toISOString().substr(0, 10),
+            startDate: this.$moment().format('YYYY-MM-DD'),
             content: '',
             type: '일반',
             valid: '',

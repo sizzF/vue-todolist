@@ -57,8 +57,9 @@ export default {
     },
     data() {
         return {
-            date: new Date().toISOString().substr(0, 10),
-        }
+            date: this.$moment().format('YYYY-MM-DD'),
+
+    }
     },
     computed: {
         ...mapState('todolists', ['mainTodoLists']),
