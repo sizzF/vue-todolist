@@ -48,19 +48,13 @@ router.post('/', isNotLoggedIn, async(req, res, next) => {
 
 router.patch('/', isLoggedIn, async(req, res, next) => {
     try{
-        const exUser = await db.User.findOne({
-            where: {
-                userId: req.body.id,
-            }
-        });
-        if(!exUser){
-            return res.status(403).send('회원정보가 존재하지 않습니다.');
-        }
-        exUser.update({
+        const exUser = await db.User.update({
             nickname: req.body.nickname,
+        },{
+            where: { id: req.user.id },
         });
-        exUser.attributes(['id', 'nickname']);
-        return res.json(exUser);
+
+        return res.json({ nickname: req.body.nickname });
     }catch(err){
         console.error(err);
         next(err);

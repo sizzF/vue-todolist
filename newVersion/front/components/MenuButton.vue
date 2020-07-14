@@ -38,7 +38,6 @@
         },
         methods: {
             async moveRoute(item){
-                console.log('in');
                 switch (item) {
                     case '할일메모':
                         this.$router.push('/');

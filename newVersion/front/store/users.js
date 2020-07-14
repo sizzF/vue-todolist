@@ -8,7 +8,11 @@ export const state = () => ({
 export const mutations = {
     setMe(state, payload) {
         state.me = payload;
+    },
+    modifyProfile(state, payload) {
+        state.me.nickname = payload.nickname;
     }
+
 };
 
 export const actions = {
@@ -62,7 +66,7 @@ export const actions = {
             }, {
                 withCredentials: true
             });
-            commit('setMe', res.data);
+            commit('modifyProfile', res);
         }catch(err){
             console.error(err);
             alert(err.response.data);

@@ -16,8 +16,8 @@
                                 :rules="nicknameRules"
                                 required
                                 />
+                            <v-btn :disabled="!vaild" color="blue" type="submit">수정</v-btn>
                         </v-form>
-                        <v-btn :disabled="!vaild" color="blue" type="submit">수정</v-btn>
                     </v-container>
                 </v-card>
             </v-container>
