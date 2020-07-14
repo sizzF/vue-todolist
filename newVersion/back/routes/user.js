@@ -67,7 +67,7 @@ router.post('/login', isNotLoggedIn, async(req, res, next) => {
                     model: db.TodoList,
                     attributes: ['id', 'startDate', 'finish'],
                 }],
-                order: [[{ model: db.TodoList, as: 'startDate' }, 'ASC']],
+                order: [[{ model: db.TodoList },'startDate', 'ASC']],
 
             });
             return res.json(fullUser);

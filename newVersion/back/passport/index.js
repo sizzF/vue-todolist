@@ -16,7 +16,7 @@ module.exports = () => {
                     model: db.TodoList,
                     attributes: ['id', 'startDate', 'finish'],
                 }],
-                order: [[{ model: db.TodoList, as: 'startDate' }, 'ASC']],
+                order: [[{ model: db.TodoList },'startDate', 'ASC']],
             });
             return done(null, fullUser);
         }catch(err){
