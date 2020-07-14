@@ -66,6 +66,7 @@ router.post('/login', isNotLoggedIn, async(req, res, next) => {
                 include: [{
                     model: db.TodoList,
                     attributes: ['id', 'startDate', 'finish'],
+                    order: [['startDate', 'ASC']],
                 }],
             });
             return res.json(fullUser);
