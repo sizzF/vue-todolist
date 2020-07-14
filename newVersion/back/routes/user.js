@@ -9,10 +9,13 @@ const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 router.get('/', isLoggedIn, async(req, res, next) => {
     try{
         const user = req.user;
-        const fullUser = db.User.findOne({
+        const fullUser = await db.User.findOne({
             where: { id: user.id },
             attributes: ['id', 'nickname'],
-
+            include: [{
+                model: db.TodoList,
+                attributes: ['id', 'startDate', 'finish'],
+            }],
         });
         res.json(fullUser);
     }catch(err){
