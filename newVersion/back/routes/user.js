@@ -12,10 +12,7 @@ router.get('/', isLoggedIn, async(req, res, next) => {
         const fullUser = db.User.findOne({
             where: { id: user.id },
             attributes: ['id', 'nickname'],
-            include: [{
-                model: db.TodoList,
-                attributes: ['id', 'finish'],
-            }],
+
         });
         res.json(fullUser);
     }catch(err){
