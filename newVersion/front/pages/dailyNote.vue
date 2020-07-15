@@ -37,7 +37,7 @@
                 </v-menu>
             </v-container>
                 <v-row no-gutters>
-                    <v-col cols="12" md="6" v-for="(note, i) in mainDailyNotes" :key="i">
+                    <v-col cols="12" md="6" v-for="note in mainDailyNotes" :key="note.id">
                         <note-card :note="note"/>
                     </v-col>
                 </v-row>
