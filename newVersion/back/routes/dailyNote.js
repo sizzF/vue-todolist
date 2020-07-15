@@ -20,7 +20,7 @@ router.get('/', isLoggedIn, async(req, res, next) => {
                     [db.Sequelize.Op.lte]: nextMonth
                 },
             },
-            order: [['date', 'DESC']],
+            order: [['date', 'DESC'], ['createdAt', 'DESC']],
         });
         return res.json(dailyNotes);
     }catch(err){
