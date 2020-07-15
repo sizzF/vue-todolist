@@ -3,12 +3,15 @@
         <v-card>
             <v-container>
                 <v-row no-gutters>
-                    <v-col cols="9" md="9">
+                    <v-col cols="9">
                         <span style="font-weight: bolder">{{ note.date.substr(0,10) }}</span>
                     </v-col>
-                    <v-col cols="3" md="3">
-                        <div style="text-align: right;">
+                    <v-col cols="1">
+                        <div style="text-align: center; vertical-align: bottom;">
                             <v-icon :style="{'color': weatherColor}">{{weatherIcon}}</v-icon>
+                        </div>
+                    </v-col>
+                    <v-col cols="2">
                             <v-menu offset-y open-on-hover>
                                 <template v-slot:activator="{ on }">
                                     <v-btn text color="blue" v-on="on">
@@ -20,9 +23,8 @@
                                     <v-btn text color="red" @click="clickRemove(note.id)">삭제</v-btn>
                                 </div>
                             </v-menu>
-                        </div>
                     </v-col>
-                    <v-col cols="12" md="12">
+                    <v-col cols="12">
                         <blockquote class="blockquote" style="font-size: 15px;">
                             <span style="white-space: pre-line">{{ note.content }}</span>
                         </blockquote>
