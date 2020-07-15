@@ -34,8 +34,8 @@ module.exports = {
     pulgins: [],
     vuetify: {},
     axios: {
-      browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : process.env.APIURL,
-      baseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : process.env.APIURL,
+      browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : 'http://localhost:3086/api',
+      baseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : 'http://localhost:3086/api',
         https: false,
     },
     moment: {

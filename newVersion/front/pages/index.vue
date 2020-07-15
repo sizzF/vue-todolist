@@ -44,6 +44,8 @@
 import TodoCard from '~/components/TodoCard';
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
+import moment from 'moment-timezone';
+moment.tz.setDefault('Asia/Seoul');
 export default {
     middleware: 'authenticated',
     components: {
@@ -52,12 +54,12 @@ export default {
     },
     fetch({ store }) {
         return Promise.all([
-            store.dispatch('todolists/getTodoLists', {date: new Date().toISOString().substr(0, 10)}),
+            store.dispatch('todolists/getTodoLists', {date: moment().format('YYYY-MM-DD')}),
         ]);
     },
     data() {
         return {
-            date: this.$moment().format('YYYY-MM-DD'),
+            date: moment().format('YYYY-MM-DD'),
 
     }
     },
@@ -85,7 +87,6 @@ export default {
             } catch (error) {
                 console.error(error);
             }
-
         }
     },
 }

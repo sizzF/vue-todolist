@@ -55,6 +55,11 @@
         middleware: 'authenticated',
         components: {UserState},
         layout: 'page',
+        fetch({ store }) {
+            return Promise.all([
+                store.dispatch('users/loadUser')
+            ]);
+        },
         data() {
             return {
                 nickname: '',

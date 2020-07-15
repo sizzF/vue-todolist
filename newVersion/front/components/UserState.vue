@@ -14,7 +14,7 @@
                 />
             </v-container>
             <v-container>
-                <span>일기 : {{0}}개</span>
+                <span>일기 : {{me.DailyNotes.length}}개</span>
             </v-container>
         </v-card>
     </v-container>

@@ -7,6 +7,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 db.User = require('./user')(sequelize, Sequelize);
 db.TodoList = require('./todolist')(sequelize, Sequelize);
+db.DailyNote = require('./dailynote')(sequelize, Sequelize);
+
 Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {
         db[modelName].associate(db);

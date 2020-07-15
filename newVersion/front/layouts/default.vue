@@ -23,11 +23,11 @@
             </v-toolbar>
         </nav>
       <v-row no-gutters v-if="isIndex">
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="4">
               <todo-form />
               <todo-state />
           </v-col>
-          <v-col cols="12" md="9">
+          <v-col cols="12" md="8">
               <nuxt />
           </v-col>
       </v-row>

@@ -62,7 +62,7 @@
         data() {
             return {
                 test: 10,
-                hide: true,
+                hide: false,
             }
         },
         computed: {

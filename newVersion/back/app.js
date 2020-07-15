@@ -14,6 +14,7 @@ const prod = process.env.NODE_ENV === 'production';
 const passportConfig = require('./passport');
 const userRouter = require('./routes/user');
 const todoListRouter = require('./routes/todoList');
+const dailyNoteRouter = require('./routes/dailyNote');
 
 
 const app = express();
@@ -61,6 +62,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRouter);
 app.use('/api/todoList', todoListRouter);
+app.use('/api/dailyNote', dailyNoteRouter);
 
 
 app.listen(prod ? process.env.PORT : 3086, () => {

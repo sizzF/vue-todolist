@@ -61,7 +61,7 @@ export const actions = {
     }, 5000),
     modifyProfile: throttle(async function({ commit }, payload) {
         try {
-            const res = await this.$axios.patch('/user', {
+            const res = await this.$axios.patch('/user/', {
                 nickname: payload.nickname,
             }, {
                 withCredentials: true

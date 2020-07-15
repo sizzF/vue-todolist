@@ -15,8 +15,12 @@ module.exports = () => {
                 include: [{
                     model: db.TodoList,
                     attributes: ['id', 'startDate', 'finish'],
+                }, {
+                    model: db.DailyNote,
+                    attributes: ['id'],
                 }],
                 order: [[{ model: db.TodoList },'startDate', 'ASC']],
+
             });
             return done(null, fullUser);
         }catch(err){
