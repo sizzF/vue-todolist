@@ -3,3 +3,5 @@
 - 프론트엔드 : Vue, Nuxt, Vuex, Vuetify, Axios
 - 백엔드 : Node, Express, Sequelize(MySQL), passport
 - 배포 : AWS(EC2)
+
+![todolist](https://user-images.githubusercontent.com/33945694/94402319-dc784300-01a6-11eb-862f-12913cba81d0.gif)
