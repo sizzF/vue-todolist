@@ -67,6 +67,6 @@ app.use('/api/todoList', todoListRouter);
 app.use('/api/dailyNote', dailyNoteRouter);
 
 
-app.listen(prod ? process.env.PORT : 3086, () => {
+app.listen(prod ? process.env.PORT : 3086, '0.0.0.0', () => {
     console.log(`백엔드 서버 ${prod ? process.env.PORT : 3086}번 포트에서 작동중`);
 })
