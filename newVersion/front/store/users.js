@@ -27,9 +27,9 @@ export const actions = {
             });
             console.log(res);
             return true;
-        }catch(err){
+        } catch (err) {
             console.error(err);
-            alert(err.response.data);
+            alert('회원가입 실패');
         }
     }, 5000),
     login: throttle(async function({ commit }, payload) {
@@ -42,9 +42,9 @@ export const actions = {
             });
             commit('setMe', res.data);
             return true;
-        }catch(err){
+        } catch (err) {
             console.error(err);
-            alert(err.response.data);
+            alert('로그인 실패');
         }
     }, 5000),
     logout: throttle(async function({ commit }) {
@@ -54,9 +54,9 @@ export const actions = {
             });
             commit('setMe', null);
             return true;
-        }catch(err){
+        } catch (err) {
             console.error(err);
-            alert(err.response.data);
+            alert('로그아웃 실패');
         }
     }, 5000),
     modifyProfile: throttle(async function({ commit }, payload) {
@@ -68,14 +68,14 @@ export const actions = {
             });
             console.log(res);
             commit('modifyProfile', res.data);
-        }catch(err){
+        } catch (err) {
             console.error(err);
             alert(err.response.data);
         }
     }, 5000),
     async loadUser({ commit }) {
         try {
-            const res = await this.$axios.get('/user',{
+            const res = await this.$axios.get('/user', {
                 withCredentials: true,
             });
             commit('setMe', res.data);
