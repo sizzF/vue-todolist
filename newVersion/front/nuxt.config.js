@@ -49,7 +49,7 @@ module.exports = {
     axios: {
         browserBaseURL: process.env.NODE_ENV === 'production' ? 'https://api2.nodebird.site/api' : 'http://localhost:3086/api',
         baseURL: process.env.NODE_ENV === 'production' ? 'https://api2.nodebird.site/api' : 'http://localhost:3086/api',
-        https: false,
+        https: true,
     },
     moment: {
         locales: ['ko'],
