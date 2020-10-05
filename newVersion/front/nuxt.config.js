@@ -28,7 +28,7 @@ module.exports = {
         }, {
             hid: 'ogimage',
             property: 'og:image',
-            content: 'https://vue.nodebird.com/TodoList.png',
+            content: '/vue-TodoList.png',
         }, {
             hid: 'ogurl',
             property: 'og:url',
