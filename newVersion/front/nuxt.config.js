@@ -47,9 +47,9 @@ module.exports = {
     pulgins: [],
     vuetify: {},
     axios: {
-        browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : 'http://localhost:3086/api',
-        baseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : 'http://localhost:3086/api',
-        https: true,
+        browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : 'https://localhost:3086/api',
+        baseURL: process.env.NODE_ENV === 'production' ? process.env.APIURL : 'https://localhost:3086/api',
+        https: flase,
     },
     moment: {
         locales: ['ko'],
