@@ -49,7 +49,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: prod,
-        domain: prod && 'todo.nodebird.site',
+        domain: prod && '.nodebird.site',
 
     }
 }));
