@@ -28,7 +28,7 @@ if (prod) {
     app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: 'https://todo.nodebird.site',
+        origin: 'nodebird.site',
         credentials: true
     }));
 } else {
