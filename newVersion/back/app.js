@@ -23,17 +23,18 @@ dotenv.config();
 db.sequelize.sync({});
 
 if (prod) {
+    app.set('trust proxy', 1);
     app.use(helmet());
     app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: true,
+        origin: 'https://todo.nodebird.site',
         credentials: true
     }));
 } else {
     app.use(morgan('dev'));
     app.use(cors({
-        origin: true,
+        origin: 'http://localhost:3089',
         credentials: true
     }))
 }
@@ -43,12 +44,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookie(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
-    saveUnitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
-        sameSite: 'none',
     }
 }));
 
