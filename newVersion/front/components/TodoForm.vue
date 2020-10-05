@@ -91,7 +91,6 @@ export default {
                     this.success = true;
                     this.successMessages = '할일 등록 성공';
                     this.content='';
-                    this.alert = true;
                     setTimeout(()=>{
                         this.success=false;
                     },2000);
