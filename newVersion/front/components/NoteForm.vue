@@ -91,10 +91,9 @@ export default {
                     this.success = true;
                     this.successMessages = '일기 등록 성공';
                     this.content='';
-                    // this.alert = true;
-                    // setTimeout(()=>{
-                    //     this.alert=false
-                    // },2000);
+                    setTimeout(()=>{
+                        this.success=false;
+                    },2000);
                 }
             }catch(err){
                 console.error(err);
