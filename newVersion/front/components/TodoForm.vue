@@ -9,7 +9,8 @@
                             <v-text-field
                                     v-model="content"
                                     label="할일을 기록해주세요"
-                                    :rules="[v => !!v || '할일이 아직 없어요!']"
+                                    :success-message="successMessages"
+                                    :success="success"
                                     required
                             />
                             <v-alert type="success" :value="alert">입력성공</v-alert>
@@ -68,12 +69,13 @@ export default {
     data() {
         return {
             today: new Date(),
-            //startDate: this.$moment().format('YYYY-MM-DD'),
             startDate: moment().format('YYYY-MM-DD'),
             content: '',
             type: '일반',
             valid: '',
             alert: false,
+            successMessages:  '',
+            success: false,
         }
     },
     methods: {
@@ -86,11 +88,13 @@ export default {
                         startDate: this.startDate,
                         finish: false,
                     });
+                    this.success = true;
+                    this.successMessages = '할일 등록 성공';
                     this.content='';
-                    this.alert = true;
-                    setTimeout(()=>{
-                        this.alert=false
-                    },2000);
+                    // this.alert = true;
+                    // setTimeout(()=>{
+                    //     this.alert=false
+                    // },2000);
                 }
             }catch(err){
                 console.error(err);

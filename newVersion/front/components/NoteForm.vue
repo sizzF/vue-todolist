@@ -48,7 +48,8 @@
                                     auto-grow
                                     clearable
                                     label="오늘 하루를 기록해보세요!"
-                                    :rules="[v => !!v || '내용이 없어요!']"
+                                    :success-message="successMessages"
+                                    :success="success"                                    
                                     required
                             />
                             <v-alert type="success" :value="alert">입력성공</v-alert>
@@ -74,6 +75,8 @@ export default {
             weather: '맑음',
             valid: '',
             alert: false,
+            successMessages:  '',
+            success: false,
         }
     },
     methods: {
@@ -85,11 +88,13 @@ export default {
                         weather: this.weather,
                         date: this.date,
                     });
+                    this.success = true;
+                    this.successMessages = '일기 등록 성공';
                     this.content='';
-                    this.alert = true;
-                    setTimeout(()=>{
-                        this.alert=false
-                    },2000);
+                    // this.alert = true;
+                    // setTimeout(()=>{
+                    //     this.alert=false
+                    // },2000);
                 }
             }catch(err){
                 console.error(err);
