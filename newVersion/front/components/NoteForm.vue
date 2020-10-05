@@ -47,7 +47,7 @@
                                     outlined
                                     auto-grow
                                     clearable
-                                    label="오늘 하루를 기록해보세요!"
+                                    :label="label"
                                     :success-message="successMessages"
                                     :success="success"                                    
                                     required
@@ -75,7 +75,7 @@ export default {
             weather: '맑음',
             valid: '',
             alert: false,
-            successMessages:  '',
+            label:  '오늘 하루를 기록해보세요!',
             success: false,
         }
     },
@@ -89,10 +89,11 @@ export default {
                         date: this.date,
                     });
                     this.success = true;
-                    this.successMessages = '일기 등록 성공';
+                    this.label = '일기 등록 성공!';
                     this.content='';
                     setTimeout(()=>{
                         this.success=false;
+                        this.label = '오늘 하루를 기록해보세요!';
                     },2000);
                 }
             }catch(err){

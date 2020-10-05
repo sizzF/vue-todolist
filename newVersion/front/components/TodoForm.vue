@@ -8,8 +8,7 @@
                         <v-form ref="form" v-model="valid" @submit.prevent="addTodoList">
                             <v-text-field
                                     v-model="content"
-                                    label="할일을 기록해주세요"
-                                    :success-message="successMessages"
+                                    :label="label"
                                     :success="success"
                                     required
                             />
@@ -74,7 +73,7 @@ export default {
             type: '일반',
             valid: '',
             alert: false,
-            successMessages:  '',
+            label:  '할일을 기록해주세요.',
             success: false,
         }
     },
@@ -89,10 +88,12 @@ export default {
                         finish: false,
                     });
                     this.success = true;
-                    this.successMessages = '할일 등록 성공';
+                    this.label = '할일 등록 성공!';
                     this.content='';
                     setTimeout(()=>{
                         this.success=false;
+                        this.label = '할일을 기록해주세요.';
+
                     },2000);
                 }
             }catch(err){
