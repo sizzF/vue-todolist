@@ -28,7 +28,7 @@ if (prod) {
     app.use(hpp());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: 'nodebird.site',
+        origin: 'https://todo.nodebird.site',
         credentials: true
     }));
 } else {
@@ -44,10 +44,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookie(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
+    saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: prod,
+        domain: prod && 'todo.nodebird.site',
+
     }
 }));
 
