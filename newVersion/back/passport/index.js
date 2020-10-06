@@ -7,8 +7,8 @@ module.exports = () => {
         return done(null, user.id);
     });
 
-    passport.deserializeUser(async (id, done) => {
-        try{
+    passport.deserializeUser(async(id, done) => {
+        try {
             const fullUser = await db.User.findOne({
                 where: { id },
                 attributes: ['id', 'nickname'],
@@ -19,13 +19,15 @@ module.exports = () => {
                     model: db.DailyNote,
                     attributes: ['id'],
                 }],
-                order: [[{ model: db.TodoList },'startDate', 'ASC']],
+                order: [
+                    [{ model: db.TodoList }, 'startDate', 'ASC']
+                ],
 
             });
             return done(null, fullUser);
-        }catch(err){
+        } catch (err) {
             console.error(err);
-            return done(err);
+            return done('이미 로그인 되어있습니다.');
         }
     });
 

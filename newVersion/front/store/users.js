@@ -29,7 +29,7 @@ export const actions = {
             return true;
         } catch (err) {
             console.error(err);
-            alert('회원가입 실패');
+            alert(err.response.data);
         }
     }, 5000),
     login: throttle(async function({ commit }, payload) {
@@ -44,7 +44,7 @@ export const actions = {
             return true;
         } catch (err) {
             console.error(err);
-            alert('로그인 실패');
+            alert(err.response.data);
         }
     }, 5000),
     logout: throttle(async function({ commit }) {
@@ -56,7 +56,7 @@ export const actions = {
             return true;
         } catch (err) {
             console.error(err);
-            alert('로그아웃 실패');
+            alert(err.response.data);
         }
     }, 5000),
     modifyProfile: throttle(async function({ commit }, payload) {
