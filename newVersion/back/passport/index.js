@@ -27,7 +27,7 @@ module.exports = () => {
             return done(null, fullUser);
         } catch (err) {
             console.error(err);
-            return done('이미 로그인 되어있습니다.');
+            return done(err);
         }
     });
 

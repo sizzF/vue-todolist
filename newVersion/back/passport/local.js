@@ -8,18 +8,18 @@ module.exports = () => {
         usernameField: 'id',
         passwordField: 'password',
     }, async(id, password, done) => {
-        try{
+        try {
             const exUser = await db.User.findOne({ where: { userId: id } });
-            if(!exUser){
+            if (!exUser) {
                 return done(null, false, '존재하지 않는 사용자 입니다.');
             }
             const result = await bcrypt.compare(password, exUser.password);
-            if(result){
+            if (result) {
                 return done(null, exUser);
-            }else{
-                return done(null, fasle, '비밀번호가 다릅니다.');
+            } else {
+                return done(null, false, '비밀번호가 다릅니다.');
             }
-        }catch(err){
+        } catch (err) {
             console.error(err);
             return done(err);
         }

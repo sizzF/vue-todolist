@@ -7,22 +7,22 @@ const router = express.Router();
 const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
 
 router.get('/', isLoggedIn, async(req, res, next) => {
-    try{
+    try {
         const user = req.user;
         res.json(user);
-    }catch(err){
+    } catch (err) {
         console.error(err);
         next(err);
     }
 });
 router.post('/', isNotLoggedIn, async(req, res, next) => {
-    try{
+    try {
         const exUser = await db.User.findOne({
             where: {
                 userId: req.body.id,
             }
         });
-        if(exUser){
+        if (exUser) {
             return res.status(403).send('이미 가입된 아이디입니다.');
         }
 
@@ -36,26 +36,26 @@ router.post('/', isNotLoggedIn, async(req, res, next) => {
             where: {
                 id: user.id,
             },
-            attributes:['userId', 'nickname']
+            attributes: ['userId', 'nickname']
         })
 
         return res.json(resUser);
-    }catch(err){
+    } catch (err) {
         console.error(err);
         next(err);
     }
 });
 
 router.patch('/', isLoggedIn, async(req, res, next) => {
-    try{
+    try {
         const exUser = await db.User.update({
             nickname: req.body.nickname,
-        },{
+        }, {
             where: { id: req.user.id },
         });
 
         return res.json({ nickname: req.body.nickname });
-    }catch(err){
+    } catch (err) {
         console.error(err);
         next(err);
     }
@@ -63,21 +63,21 @@ router.patch('/', isLoggedIn, async(req, res, next) => {
 
 
 router.post('/login', isNotLoggedIn, async(req, res, next) => {
-    passport.authenticate('local',(err, user, info) => {
-        if(err){
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
             console.error(err);
             return next(err);
         }
-        if(info){
+        if (info) {
             return res.status(401).send(info);
         }
-        return req.login(user, async (err) => {
-            if(err){
+        return req.login(user, async(err) => {
+            if (err) {
                 console.error(err);
                 return next(err);
             }
             const fullUser = await db.User.findOne({
-                where: {id: user.id},
+                where: { id: user.id },
                 attributes: ['id', 'nickname'],
                 include: [{
                     model: db.TodoList,
@@ -86,7 +86,9 @@ router.post('/login', isNotLoggedIn, async(req, res, next) => {
                     model: db.DailyNote,
                     attributes: ['id'],
                 }],
-                order: [[{ model: db.TodoList },'startDate', 'ASC']],
+                order: [
+                    [{ model: db.TodoList }, 'startDate', 'ASC']
+                ],
 
             });
             return res.json(fullUser);
@@ -95,7 +97,7 @@ router.post('/login', isNotLoggedIn, async(req, res, next) => {
 });
 
 router.post('/logout', isLoggedIn, async(req, res, next) => {
-    if(req.isAuthenticated){
+    if (req.isAuthenticated) {
         req.logout();
         req.session.destroy();
         return res.status(200).send('로그아웃 되었습니다.');
