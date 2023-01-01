@@ -21,7 +21,7 @@
     "axios": "^0.19.2",
     "greenlock-express": "^4.0.3",
     "lodash.throttle": "^4.1.1",
-    "nuxt": "^2.12.2",
+    "nuxt": "^3.0.0",
     "pm2": "^4.4.0",
     "vue": "^2.6.11",
     "vuedraggable": "^2.24.0",
